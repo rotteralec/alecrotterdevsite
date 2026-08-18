@@ -1,0 +1,335 @@
+/* terminal.css — every style for the terminal layout.
+   All selectors start with .terminal
+
+   All colors are defined as CSS variables for .terminal.dark and .terminal.light. 
+   Rest of file uses var(--t-green) or var(--t-bg). This causes theme switch to update every color instantly.
+
+/* ── Dark theme (default): green teal on black ── */
+.terminal.dark {
+  --t-bg: #0a0e12;          
+  --t-window: #0d1117;      
+  --t-bar: #161b22;         
+  --t-border: #1d9e75;      
+  --t-green: #2eda8c;       
+  --t-green-dim: #9fe1cb;   
+  --t-text: #c9d1d9;        
+  --t-muted: #8b949e;       
+}
+
+/* ── Light theme: a "paper terminal" — same structure, inverted ── */
+.terminal.light {
+  --t-bg: #e8e6e0;
+  --t-window: #fdfcf9;
+  --t-bar: #efede7;
+  --t-border: #0f6e56;
+  --t-green: #0a7a52;
+  --t-green-dim: #20654d;
+  --t-text: #2c2c2a;
+  --t-muted: #6b6a64;
+}
+
+/* ── The screen: centers the terminal window with padding around it ── */
+.terminal .t-screen {
+  height: 100vh;
+  background: var(--t-bg);
+  padding: 40px 16px;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* ── The window: border, rounded corners, subtle glow.
+    Window is fixed-height flex column with session scrolling inside while
+    window stays put. ── */
+.terminal .t-window {
+  width: 100%;
+  max-width: 860px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--t-window);
+  border: 1px solid var(--t-border);
+  border-radius: 10px;
+  overflow: hidden; /* keeps the title bar corners rounded */
+  box-shadow: 0 0 60px rgba(46, 218, 140, 0.08);
+}
+
+/* ── Title bar with the three macOS dots ── */
+.terminal .t-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--t-bar);
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--t-border);
+}
+
+.terminal .t-dots {
+  display: flex;
+  gap: 7px;
+}
+
+.terminal .t-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+/* Classic red/yellow/green — same in both themes on purpose */
+.terminal .t-dot.red    { background: #ff5f57; }
+.terminal .t-dot.yellow { background: #febc2e; }
+.terminal .t-dot.green  { background: #28c840; }
+
+.terminal .t-bar-title {
+  color: var(--t-muted);
+  font-size: 13px;
+  /* sits between the dots and the exit button */
+  flex: 1;
+  text-align: center;
+}
+
+/* One real button in terminal mode that lets you switch to minimal
+    layout without having to deal with terminal commands */
+.terminal .t-btn {
+  font-size: 12px;
+  color: var(--t-green);
+  border: 1px solid var(--t-border);
+  border-radius: 4px;
+  padding: 3px 10px;
+  transition: background 0.15s, color 0.15s;
+}
+.terminal .t-btn:hover {
+  background: var(--t-green);
+  color: var(--t-window);
+}
+
+/* ── Body of terminal session. Scrolling part ── */
+.terminal .t-body {
+  padding: 24px 28px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px; /* spacing between command entries */
+  flex: 1;
+  overflow-y: auto;
+  cursor: text; /* the whole body is "clickable to type", hint it */
+}
+
+/* The shell prompt lines (typed history + the live one) */
+.terminal .t-prompt {
+  color: var(--t-text);
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+.terminal .t-arrow { color: var(--t-green); font-weight: 700; }
+.terminal .t-path  { color: var(--t-green-dim); }
+
+/* ── Hero ── */
+.terminal .t-name {
+  color: var(--t-green);
+  font-size: clamp(28px, 6vw, 44px); /* scales with screen width */
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+
+.terminal .t-tagline {
+  color: var(--t-green-dim);
+  font-size: 16px;
+  margin-top: 6px;
+  min-height: 1.5em; /* reserves space so typing doesn't shift layout */
+}
+
+/* The block cursor. The .blink class starts the animation once
+   the typewriter is done. */
+.terminal .t-cursor {
+  color: var(--t-green);
+  margin-left: 2px;
+}
+.terminal .t-cursor.blink {
+  animation: t-blink 1s steps(1) infinite;
+}
+@keyframes t-blink {
+  50% { opacity: 0; } /* visible half the time = classic blink */
+}
+
+/* ── Plain text paragraphs ── */
+.terminal .t-text {
+  color: var(--t-text);
+  font-size: 14.5px;
+  line-height: 1.8;
+  max-width: 65ch; /* 65 characters per line ≈ comfortable reading */
+}
+.terminal .t-text + .t-text {
+  margin-top: 12px; /* gap between bio paragraphs only */
+}
+
+/* ── "ls" command structure ── */
+.terminal .t-ls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 8px 24px;
+  color: var(--t-green-dim);
+  font-size: 14px;
+}
+.terminal .t-ls li::before {
+  content: "▸ ";
+  color: var(--t-green);
+}
+
+/* ── REPL pieces ── */
+
+/* Boot banner: name, typed tagline, and a "help" hint */
+.terminal .t-banner {
+  margin-bottom: 14px;
+}
+
+/* Muted helper lines ("type help to see what you can do", etc.) */
+.terminal .t-hint {
+  color: var(--t-muted);
+  font-size: 13px;
+  margin-top: 10px;
+}
+.terminal .t-hint b {
+  color: var(--t-green);
+  font-weight: 700;
+}
+
+/* Error output — dim + clear. 
+    MIGHT CHANGE TO RED EVENTUALLY*/
+.terminal .t-error {
+  color: var(--t-muted);
+  font-size: 14px;
+}
+
+/* A command's printed output, indented a touch under its prompt */
+.terminal .t-output {
+  margin-bottom: 6px;
+}
+
+/* Remove normal broser input element attributes like a box background, inset border,
+   own font, and focus ring when clicked. This removes those and makes it look more like
+   terminal input with just the characters showing. */
+.terminal .t-input-row {
+  display: flex;
+  align-items: baseline;
+}
+.terminal .t-input-prompt {
+  margin-bottom: 0;
+  white-space: nowrap;
+}
+.terminal .t-input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  font: inherit;
+  font-size: 14px;
+  color: var(--t-text);
+  caret-color: var(--t-green); /* green caret = the "cursor" */
+  padding: 0 0 0 6px;
+}
+
+/* ── The help screen ── */
+.terminal .t-help {
+  font-size: 13.5px;
+}
+.terminal .t-help-title {
+  color: var(--t-green);
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.terminal .t-help-section {
+  color: var(--t-muted);
+  margin: 14px 0 6px;
+}
+/* Each row: command in green on the left, description on the right */
+.terminal .t-help-row {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 16px;
+  padding: 2px 0;
+}
+.terminal .t-help-cmd {
+  color: var(--t-green);
+}
+.terminal .t-help-desc {
+  color: var(--t-text);
+}
+.terminal .t-help-foot {
+  color: var(--t-muted);
+  margin-top: 14px;
+  font-style: italic;
+}
+
+/* ── Project cards ── */
+.terminal .t-projects {
+  display: grid;
+  gap: 14px;
+}
+
+.terminal .t-card {
+  border: 1px solid var(--t-border);
+  border-radius: 6px;
+  padding: 18px 20px;
+  transition: box-shadow 0.2s;
+}
+.terminal .t-card:hover {
+  box-shadow: 0 0 24px rgba(46, 218, 140, 0.12);
+}
+
+.terminal .t-card-name {
+  color: var(--t-green);
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.terminal .t-card-desc {
+  color: var(--t-text);
+  font-size: 14px;
+  line-height: 1.7;
+  margin-bottom: 12px;
+}
+
+/* The stack:/learned: lines */
+.terminal .t-card-line {
+  color: var(--t-green-dim);
+  font-size: 13.5px;
+  line-height: 1.7;
+}
+.terminal .t-key {
+  color: var(--t-muted);
+}
+
+/* Link row — [github] [live demo] */
+.terminal .t-card-links {
+  margin-top: 12px;
+  display: flex;
+  gap: 16px;
+}
+.terminal .t-card-links a {
+  color: var(--t-green);
+  font-size: 13.5px;
+  transition: opacity 0.15s;
+}
+.terminal .t-card-links a:hover {
+  opacity: 0.7;
+  text-decoration: underline;
+}
+
+/* ── Contact output ── */
+.terminal .t-contact {
+  margin-top: 0;
+}
+
+/* ── Small screens: tightened padding so the window fits nicely ── */
+@media (max-width: 600px) {
+  .terminal .t-screen { padding: 12px 8px; }
+  .terminal .t-body   { padding: 18px 16px 22px; }
+  .terminal .t-bar-title { display: none; } /* not enough room */
+  /* help rows stack on phones — 240px columns don't fit */
+  .terminal .t-help-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 4px 0;
+  }
+}

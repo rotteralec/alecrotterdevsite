@@ -1,0 +1,461 @@
+/* minimal.css — every style for the minimal layout.
+  All selectors start with .minimal
+   
+  All colors are defined as CSS variables for .minimal.dark and .minimal.light. 
+  Rest of file uses var(--m-green) or var(--m-bg). This causes theme switch to update every color instantly. */
+
+/* ── Light theme (the minimal layout defaults to light) ── */
+.minimal.light {
+  --m-bg: #fdfcfa;        /* page background */
+  --m-surface: #ffffff;   /* cards */
+  --m-text: #1a1a18;      /* headings / main text */
+  --m-body: #252522;      /* paragraphs */
+  --m-accent:      hsl(165, 80%, 27%, 1);   
+  --m-accent-soft: hsl(165, 50%, 95%, 1);   
+  --m-muted:       hsl(165, 10%, 40%, 1);   
+  --m-border:      hsl(165, 15%, 88%, 1);   
+  --m-on-accent:   #ffffff;     
+}
+
+/* ── Dark theme: tasteful charcoal, same accent ── */
+.minimal.dark {
+  --m-bg: #131316;
+  --m-surface: #1b1b1f;
+  --m-text: #f2f1ed;
+  --m-body: #b9b8b2;
+  --m-muted: hsl(165, 8%, 54%);
+  --m-border: hsl(165, 12%, 22%);
+  --m-accent: hsl(165, 80%, 40%);
+  --m-accent-soft: hsl(165, 45%, 11%);
+  --m-on-accent: #131316; 
+}
+
+/* ── Page frame ── */
+.minimal .m-page {
+  min-height: 100vh;
+  background: var(--m-bg);
+  color: var(--m-text);
+  font-family: "Inter", system-ui, sans-serif;
+  /* color/background change when the theme flips — ease it */
+  transition: background 0.25s, color 0.25s;
+}
+
+/* ── Header ── */
+.minimal .m-header {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 24px 24px 0;
+  display: flex;
+  justify-content: space-between; /* name left, buttons right */
+  align-items: center;
+}
+
+.minimal .m-logo {
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: -0.3px;
+}
+
+.minimal .m-nav {
+  display: flex;
+  gap: 10px;
+}
+
+.minimal .m-btn {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--m-body);
+  border: 1px solid var(--m-border);
+  border-radius: 99px; /* full pill */
+  padding: 7px 16px;
+  transition: all 0.15s;
+}
+.minimal .m-btn:hover {
+  border-color: var(--m-accent);
+  color: var(--m-accent);
+}
+/* The layout-switch button gets the accent treatment to stand out. */
+.minimal .m-btn-accent {
+  background: var(--m-accent);
+  border-color: var(--m-accent);
+  color: var(--m-on-accent);
+}
+.minimal .m-btn-accent:hover {
+  opacity: 0.85;
+  color: var(--m-on-accent);
+}
+
+/* ── Main column ── */
+.minimal .m-main {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 72px; /* ample whitespace between sections */
+}
+
+/* ── Hero ── */
+.minimal .m-hero {
+  padding-top: 96px;
+}
+
+.minimal .m-hero-name {
+  /* clamp(min, preferred, max) = fluid type that scales with the
+     viewport, but stays within 1st and 3rd parameter */
+  font-size: clamp(40px, 8vw, 72px);
+  font-weight: 800;
+  letter-spacing: -2.5px;
+  line-height: 1.05;
+}
+
+.minimal .m-hero-tagline {
+  margin-top: 16px;
+  font-size: 19px;
+  color: var(--m-accent);
+  font-weight: 500;
+}
+
+/* ── Section titles ── */
+.minimal .m-section-title {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.6px;
+  margin-bottom: 24px;
+}
+
+.minimal .m-section-number {
+  color: var(--m-accent);
+  font-size: 15px;
+  font-weight: 600;
+  vertical-align: 4px; /* raises character up similar to superscript */
+  margin-right: 6px;
+}
+
+/* ── Body text ── */
+.minimal .m-text {
+  color: var(--m-body);
+  font-size: 16.5px;
+  line-height: 1.8;
+  max-width: 62ch;
+}
+.minimal .m-text + .m-text {
+  margin-top: 14px;
+}
+
+/* ── Chips (used for interests and project tech tags) ── */
+.minimal .m-chip {
+  display: inline-block;
+  background: var(--m-accent-soft);
+  color: var(--m-accent);
+  font-size: 12.5px;
+  font-weight: 600;
+  border-radius: 99px;
+  padding: 4px 12px;
+}
+.minimal .m-chip-lg {
+  font-size: 14px;
+  padding: 8px 18px;
+}
+
+.minimal .m-interests {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* ── Filter pills ── */
+.minimal .m-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+
+.minimal .m-filter {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--m-body);
+  border: 1px solid var(--m-border);
+  border-radius: 99px;
+  padding: 6px 16px;
+  transition: all 0.15s;
+}
+.minimal .m-filter:hover {
+  border-color: var(--m-accent);
+  color: var(--m-accent);
+}
+.minimal .m-filter.active {
+  background: var(--m-accent);
+  border-color: var(--m-accent);
+  color: var(--m-on-accent);
+}
+
+/* ── Project cards ── */
+.minimal .m-projects {
+  display: grid;
+  /* auto-fit + minmax = 2 columns on desktop, 1 on phones,
+     without writing a media query */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.minimal .m-card {
+  background: var(--m-surface);
+  border: 1px solid var(--m-border);
+  border-radius: 16px;
+  padding: 26px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.minimal .m-card:hover {
+  transform: translateY(-3px); /* gentle lift on hover */
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.07);
+}
+
+.minimal .m-card-name {
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+  margin-bottom: 10px;
+}
+
+.minimal .m-card-desc {
+  color: var(--m-body);
+  font-size: 14.5px;
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+
+.minimal .m-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+/* set apart with accent bar*/
+.minimal .m-card-learned {
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: var(--m-body);
+  border-left: 3px solid var(--m-accent);
+  padding-left: 12px;
+  margin-bottom: 18px;
+}
+.minimal .m-learned-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--m-muted);
+  margin-bottom: 3px;
+}
+
+.minimal .m-card-links {
+  display: flex;
+  gap: 18px;
+}
+.minimal .m-card-links a {
+  color: var(--m-accent);
+  font-size: 14px;
+  font-weight: 600;
+  transition: opacity 0.15s;
+}
+.minimal .m-card-links a:hover {
+  opacity: 0.7;
+}
+
+/* ── Footer ── */
+.minimal .m-footer {
+  border-top: 1px solid var(--m-border);
+  padding-top: 56px;
+}
+.minimal .m-footer-links {
+  margin-top: 20px;
+}
+.minimal .m-copyright {
+  margin-top: 40px;
+  font-size: 13px;
+  color: var(--m-muted);
+}
+
+/* ── Small screens ── */
+@media (max-width: 600px) {
+  .minimal .m-hero { padding-top: 56px; }
+  .minimal .m-main { gap: 56px; }
+  /* Header stacks: name above the buttons */
+  .minimal .m-header {
+    flex-direction: column;
+    gap: 14px;
+    align-items: flex-start;
+  }
+}
+
+/* Projects: search + grouped filters + expandable cards */
+
+/* Facet colour-coding. Language reuses the site accent; tools and skills
+   get mid-tone hues */
+.minimal .m-chip-language {
+  background: var(--m-accent-soft);
+  color: var(--m-accent);
+}
+.minimal .m-chip-tool {
+  background: rgba(20, 184, 166, 0.15);
+  color: #0f9a8c;
+}
+.minimal .m-chip-skill {
+  background: rgba(245, 158, 11, 0.16);
+  color: #c07806;
+}
+
+/* ── Search box ── */
+.minimal .m-search {
+  margin-bottom: 18px;
+}
+.minimal .m-search-input {
+  width: 100%;
+  font: inherit;
+  font-size: 15px;
+  color: var(--m-text);
+  background: var(--m-surface);
+  border: 1px solid var(--m-border);
+  border-radius: 12px;
+  padding: 12px 16px;
+  transition: border-color 0.15s;
+}
+.minimal .m-search-input::placeholder {
+  color: var(--m-muted);
+}
+.minimal .m-search-input:focus {
+  outline: none;
+  border-color: var(--m-accent);
+}
+
+/* ── Grouped filters (Languages / Tools / Skills) ── */
+.minimal .m-filter-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+.minimal .m-filter-group {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+.minimal .m-filter-group-label {
+  flex: 0 0 80px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--m-muted);
+  padding-top: 6px;
+}
+/* The .m-filters row keeps its own pill styles; only bottom margin
+   is dropped here because group wrapper handles spacing now. */
+.minimal .m-filter-group .m-filters {
+  margin-bottom: 0;
+}
+
+/* ── Results count + clear ── */
+.minimal .m-results-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.minimal .m-results-count {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--m-muted);
+}
+.minimal .m-clear-btn {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--m-accent);
+  border: 1px solid var(--m-border);
+  border-radius: 99px;
+  padding: 5px 14px;
+  transition: border-color 0.15s;
+}
+.minimal .m-clear-btn:hover {
+  border-color: var(--m-accent);
+}
+
+/* ── Empty state ── */
+.minimal .m-empty {
+  color: var(--m-muted);
+  font-size: 15px;
+  padding: 24px 0;
+}
+
+/* ── Collapsed-card description teaser (highlight = "description") ── */
+.minimal .m-card-highlight-text {
+  color: var(--m-body);
+  font-size: 14px;
+  line-height: 1.65;
+  font-style: italic;
+  border-left: 3px solid var(--m-accent);
+  padding-left: 12px;
+  margin-bottom: 16px;
+}
+
+/* ── Expand / collapse toggle (sits at the right of the link row) ── */
+.minimal .m-card-expand {
+  margin-left: auto;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--m-muted);
+  transition: color 0.15s;
+}
+.minimal .m-card-expand:hover {
+  color: var(--m-accent);
+}
+
+/* ── Expanded details block ── */
+.minimal .m-details {
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid var(--m-border);
+}
+.minimal .m-details .m-text {
+  font-size: 14.5px;
+}
+.minimal .m-detail-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: baseline;
+  margin-top: 14px;
+}
+.minimal .m-detail-label {
+  flex: 0 0 78px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--m-muted);
+}
+.minimal .m-detail-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* Small screens: stack each filter group's label above its pills. */
+@media (max-width: 600px) {
+  .minimal .m-filter-group {
+    flex-direction: column;
+    gap: 6px;
+  }
+  .minimal .m-filter-group-label {
+    flex-basis: auto;
+    padding-top: 0;
+  }
+  .minimal .m-results-bar {
+    flex-wrap: wrap;
+  }
+}

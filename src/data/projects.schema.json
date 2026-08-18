@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Portfolio projects file",
+  "description": "Validates projects.json. Most code editors read the $schema link at the top of projects.json and will underline mistakes (missing fields, wrong types, typo'd field names) as you type. This file is documentation + editor tooling only; the loader in projects.js does its own lightweight runtime check.",
+  "type": "object",
+  "required": ["projects"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Points at this schema file so editors validate the data."
+    },
+    "projects": {
+      "type": "array",
+      "description": "One object per project. Add a project by copying an existing object and editing it.",
+      "items": {
+        "type": "object",
+        "required": ["name", "languages", "tools", "skills", "summary", "description"],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Project title, shown as-is. The URL-style slug (used by the terminal's `cat projects/NAME`) is derived from this automatically."
+          },
+          "languages": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Programming / markup / styling languages (e.g. TypeScript, Python, CSS). Can be empty. Becomes a 'Languages' filter facet."
+          },
+          "tools": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Frameworks, libraries, services, platforms, and APIs (e.g. React, Firebase, Docker, Canvas API). Becomes a 'Tools' filter facet."
+          },
+          "skills": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "What this project demonstrates. Free-form labels — no fixed list. Becomes a 'Skills' filter facet and is also searchable text."
+          },
+          "github": {
+            "type": ["string", "null"],
+            "description": "Repository URL, or null if the repo is private / has no public link. The card simply omits the GitHub link when this is null."
+          },
+          "website": {
+            "type": ["string", "null"],
+            "description": "Live site / demo URL, or null to hide the link."
+          },
+          "summary": {
+            "type": "string",
+            "description": "One or two sentences. Always visible on the card."
+          },
+          "description": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Detailed description. Each string is one paragraph. Shown when a card is expanded or the project is `cat`-ed in the terminal."
+          },
+          "highlight": {
+            "type": ["string", "null"],
+            "enum": ["skills", "description", "tools", "languages", null],
+            "description": "Which block leads on the collapsed card, so each project can foreground its most interesting part. 'skills' for a project built to learn something; 'description' for one where the story matters most. Omit or null to show just the basics."
+          },
+          "started": {
+            "type": ["string", "null"],
+            "pattern": "^\\d{4}(-\\d{2})?$",
+            "description": "YYYY or YYYY-MM, when the project began. Drives sort order (newest first). NOT shown to visitors. null keeps the project in file order, after dated ones."
+          },
+          "lastWorked": {
+            "type": ["string", "null"],
+            "pattern": "^\\d{4}(-\\d{2})?$",
+            "description": "YYYY or YYYY-MM, when you last worked on it. Metadata only — NOT shown to visitors and does not affect sort, so a bug-fix commit won't reorder your projects."
+          }
+        }
+      }
+    }
+  }
+}

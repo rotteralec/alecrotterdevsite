@@ -1,0 +1,47 @@
+/* base.css — base styles not tailored to one layout */
+
+/* box-sizing: border-box means padding counts INSIDE an element's
+   width instead of adding to it. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  /* Smooth scrolling for possible future anchor links*/
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  /* Nicer text rendering on mac */
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Buttons don't inherit fonts by default. 
+    Both layouts restyle their buttons */
+button {
+  font: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+}
+
+/* Links are changed per layout. This just removes underline */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
