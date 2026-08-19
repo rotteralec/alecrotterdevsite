@@ -2,64 +2,20 @@
   "$schema": "./projects.schema.json",
   "projects": [
     {
-      "name": "TaskFlow",
-      "languages": ["TypeScript"],
-      "tools": ["React", "Firebase"],
-      "skills": ["Real-time data sync", "Optimistic UI", "Conflict resolution"],
-      "github": "https://github.com/yourusername/taskflow",
-      "website": "https://taskflow-demo.example.com",
-      "summary": "A kanban-style task manager with drag-and-drop boards and real-time sync between devices.",
+      "name": "Job Application Tracker",
+      "languages": ["JavaScript", "HTML", "CSS"],
+      "tools": ["Chrome Extensions", "Manifest V3", "Chrome Side Panel API", "Google Apps Script", "JSON-LD"],
+      "skills": ["Browser extension development", "Web scraping", "DOM Parsing", "Serverless backend integration", "REST API design", "CORS", "Zero-dependency development"],
+      "github": "https://github.com/rotteralec/Job-Tracker-Extension",
+      "website": "null",
+      "summary": "A Chrome extension that logs a job application to a Google Sheet in one click and archives the full job description as its own Google Doc before the posting disappears. Vanilla JavaScript on both ends — no frameworks, no build step, no hosting.",
       "description": [
-        "EDIT: write the detailed, multi-paragraph description here. This is what shows when a card is expanded (minimal layout) or when someone runs `cat projects/taskflow` in the terminal. Cover what problem it solved, how you built it, and what was hard."
+        "A Chrome extension (MV3) with a Google Apps Script backend. Vanilla JS with no build step. Side panel injects scraper into page and reads job fields off it to POST them into script. Script saves the description as Google Doc and appends info row to Google Sheet.",
+        "Scraping runs in three layers to achieve same result on multiple sites with different job views. 1) Site-specific selectors, 2) JSON-LD, 3) OpenGraph meta tags and Highlighted text."
       ],
       "highlight": "skills",
-      "started": null,
-      "lastWorked": null
-    },
-    {
-      "name": "PixelPal",
-      "languages": ["JavaScript", "CSS"],
-      "tools": ["Canvas API"],
-      "skills": ["Sprite animation", "requestAnimationFrame", "Background-tab timers"],
-      "github": "https://github.com/yourusername/pixelpal",
-      "website": "https://pixelpal.example.com",
-      "summary": "A virtual pet that lives in the browser tab — it reacts to how long you've been working and reminds you to take breaks.",
-      "description": [
-        "EDIT: write the detailed, multi-paragraph description here."
-      ],
-      "highlight": "description",
-      "started": null,
-      "lastWorked": null
-    },
-    {
-      "name": "ScrapeWatch",
-      "languages": ["Python"],
-      "tools": ["SQLite", "Docker"],
-      "skills": ["Web scraping", "Job scheduling", "CLI packaging"],
-      "github": "https://github.com/yourusername/scrapewatch",
-      "website": null,
-      "summary": "A CLI tool that watches product pages and sends a notification when the price drops below a target.",
-      "description": [
-        "EDIT: write the detailed, multi-paragraph description here."
-      ],
-      "highlight": "skills",
-      "started": null,
-      "lastWorked": null
-    },
-    {
-      "name": "Portfolio v2",
-      "languages": ["JavaScript", "CSS"],
-      "tools": ["React", "Deno", "Vite"],
-      "skills": ["Shared data source across layouts", "Running React on Deno"],
-      "github": "https://github.com/yourusername/portfolio",
-      "website": null,
-      "summary": "This very site — a dual-personality portfolio that switches between a terminal UI and a minimal design.",
-      "description": [
-        "EDIT: write the detailed, multi-paragraph description here."
-      ],
-      "highlight": "description",
-      "started": null,
-      "lastWorked": null
+      "started": "2026-06",
+      "lastWorked": "2026-08"
     }
   ]
 }
