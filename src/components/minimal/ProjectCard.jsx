@@ -19,6 +19,8 @@ const KIND = { languages: "language", tools: "tool", skills: "skill" };
 // Max characters allowed in highlight if description is chosen to highlight
 const TEASER_LEN = 140;
 
+const MAX_CHIPS = 7;
+
 // Render the wildcard highlight block based on project.highlight.
 // Understands ["skills", "description", "tools", "languages"], null renders nothing.
 function Highlight({ project }) {
@@ -41,7 +43,7 @@ function Highlight({ project }) {
   if (items.length === 0) return null;
   return (
     <div className="m-card-tags">
-      {items.map((item) => (
+      {items.slice(0, MAX_CHIPS).map((item) => (
         <Chip key={item} kind={KIND[h]}>
           {item}
         </Chip>
@@ -52,14 +54,22 @@ function Highlight({ project }) {
 
 export default function ProjectCard({ project }) {
   const [open, setOpen] = useState(false);
+  const bodyId = `${project.slug}-body`;
 
   return (
-    <article className="m-card">
+    <article className={open ? "m-card is-open" : "m-card"}>
       <h3 className="m-card-name">{project.name}</h3>
       <p className="m-card-desc">{project.summary}</p>
 
       {/* The wildcard highlight */}
-      <Highlight project={project} />
+      {/* Expanded body: only mounted when open. */}
+      <div className="m-card-body" id={bodyId} key={open ? "open" : "closed"}>
+        {open ? (
+          <ProjectDetails project={project} />
+        ) : (
+          <Highlight project={project} />
+        )}
+      </div>
 
       {/* Links + the expand toggle on same row. 
       Each link renders only if it exists.
@@ -79,13 +89,11 @@ export default function ProjectCard({ project }) {
           className="m-card-expand"
           onClick={() => setOpen((o) => !o)}
           aria-expanded={open}
+          aria-controls={bodyId}
         >
           {open ? "Hide details ▾" : "Details ▸"}
         </button>
       </div>
-
-      {/* Expanded body: only mounted when open. */}
-      {open && <ProjectDetails project={project} />}
     </article>
   );
 }

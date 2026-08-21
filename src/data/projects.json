@@ -7,8 +7,8 @@
       "tools": ["Chrome Extensions", "Manifest V3", "Chrome Side Panel API", "Google Apps Script", "JSON-LD"],
       "skills": ["Browser extension development", "Web scraping", "DOM Parsing", "Serverless backend integration", "REST API design", "CORS", "Zero-dependency development"],
       "github": "https://github.com/rotteralec/Job-Tracker-Extension",
-      "website": "null",
       "summary": "A Chrome extension that logs a job application to a Google Sheet in one click and archives the full job description as its own Google Doc before the posting disappears. Vanilla JavaScript on both ends — no frameworks, no build step, no hosting.",
+      "website": null,
       "description": [
         "A Chrome extension (MV3) with a Google Apps Script backend. Vanilla JS with no build step. Side panel injects scraper into page and reads job fields off it to POST them into script. Script saves the description as Google Doc and appends info row to Google Sheet.",
         "Scraping runs in three layers to achieve same result on multiple sites with different job views. 1) Site-specific selectors, 2) JSON-LD, 3) OpenGraph meta tags and Highlighted text."

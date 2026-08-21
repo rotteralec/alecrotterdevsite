@@ -40,10 +40,12 @@
           },
           "github": {
             "type": ["string", "null"],
+            "pattern": "^https?://",
             "description": "Repository URL, or null if the repo is private / has no public link. The card simply omits the GitHub link when this is null."
           },
           "website": {
             "type": ["string", "null"],
+            "pattern": "^https?://",
             "description": "Live site / demo URL, or null to hide the link."
           },
           "summary": {

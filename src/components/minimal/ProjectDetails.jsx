@@ -28,11 +28,16 @@ export default function ProjectDetails({ project }) {
   return (
     <div className="m-details">
       {/* Each description string is its own paragraph. */}
-      {project.description.map((paragraph, i) => (
-        <p className="m-text" key={i}>
-          {paragraph}
-        </p>
-      ))}
+      <div className="m-detail-row">
+        <span className="m-detail-label">Details</span>
+        <div className="m-detail-text">
+          {project.description.map((paragraph, i) => (
+            <p className="m-text" key={i}>
+              {paragraph}
+            </p>
+          ))}
+        </div>
+      </div>
 
       {/* The full facet lists, colour-coded to match the filters. */}
       <ChipRow label="Languages" items={project.languages} kind="language" />

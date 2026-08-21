@@ -59,7 +59,20 @@ function isValid(project, index) {
 }
 
 
-// Sort newest first by START DATE ONLY. 
+function normalizeLink(value, field, name) {
+  const s = typeof value === "string" ? value.trim() : value;
+  if (s == null || s === "") return null;
+  if (s === "null" || s === "undefined") {
+    console.warn(
+      `[projects.js] "${field}" on "${name}" is the string "${s}", not a real null — ` +
+        `treating it as null. Remove the quotes in projects.json.`
+    );
+    return null;
+  }
+  return s;
+}
+
+// Sort newest first by START DATE ONLY.
 // New commit on old project should not pop that project to top.
 function byNewest(list) {
   const dated = list.filter((p) => p.started);
@@ -75,12 +88,12 @@ export const projects = byNewest(
     .filter(isValid)
     .map((p) => ({
       // Fill in the optional fields so components never see `undefined`.
-      github: null,
-      website: null,
       highlight: null,
       started: null,
       lastWorked: null,
       ...p,
+      github: normalizeLink(p.github, "github", p.name),
+      website: normalizeLink(p.website, "website", p.name),
       // Add the derived slug last so it can't be overridden by the JSON.
       slug: slug(p.name),
     }))

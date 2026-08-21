@@ -198,6 +198,7 @@
      without writing a media query */
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 20px;
+  align-items: start;
 }
 
 .minimal .m-card {
@@ -208,8 +209,10 @@
   transition: transform 0.2s, box-shadow 0.2s;
 }
 .minimal .m-card:hover {
-  transform: translateY(-3px); /* gentle lift on hover */
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.07);
+}
+.minimal .m-card:not(.is-open):hover {
+  transform: translateY(-3px); /* gentle lift on hover */
 }
 
 .minimal .m-card-name {
@@ -231,25 +234,6 @@
   flex-wrap: wrap;
   gap: 6px;
   margin-bottom: 16px;
-}
-
-/* set apart with accent bar*/
-.minimal .m-card-learned {
-  font-size: 13.5px;
-  line-height: 1.65;
-  color: var(--m-body);
-  border-left: 3px solid var(--m-accent);
-  padding-left: 12px;
-  margin-bottom: 18px;
-}
-.minimal .m-learned-label {
-  display: block;
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-  color: var(--m-muted);
-  margin-bottom: 3px;
 }
 
 .minimal .m-card-links {
@@ -415,10 +399,31 @@
   color: var(--m-accent);
 }
 
+.minimal .m-card-body {
+  animation: m-card-body-in 150ms ease-out both;
+}
+
+@keyframes m-card-body-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .minimal .m-card-body {
+    animation: none;
+  }
+}
+
 /* ── Expanded details block ── */
 .minimal .m-details {
-  margin-top: 18px;
   padding-top: 18px;
+  margin-bottom: 16px;
   border-top: 1px solid var(--m-border);
 }
 .minimal .m-details .m-text {
@@ -444,6 +449,13 @@
   flex-wrap: wrap;
   gap: 6px;
 }
+.minimal .m-detail-text {
+  flex: 1;
+  min-width: 180px;
+}
+.minimal .m-details .m-detail-row:first-child {
+  margin-top: 0;
+}
 
 /* Small screens: stack each filter group's label above its pills. */
 @media (max-width: 600px) {
@@ -457,5 +469,15 @@
   }
   .minimal .m-results-bar {
     flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 600px) {
+  .minimal .m-detail-row {
+    flex-direction: column;
+    gap: 6px;
+  }
+  .minimal .m-detail-label {
+    flex: 0 0 auto;
   }
 }
