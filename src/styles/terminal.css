@@ -5,7 +5,7 @@
    Rest of file uses var(--t-green) or var(--t-bg). This causes theme switch to update every color instantly.
 
 /* ── Dark theme (default): green teal on black ── */
-.terminal.dark {
+html:has(.terminal.dark) {
   --t-bg: #0a0e12;          
   --t-window: #0d1117;      
   --t-bar: #161b22;         
@@ -17,7 +17,7 @@
 }
 
 /* ── Light theme: a "paper terminal" — same structure, inverted ── */
-.terminal.light {
+html:has(.terminal.light) {
   --t-bg: #e8e6e0;
   --t-window: #fdfcf9;
   --t-bar: #efede7;
@@ -26,6 +26,10 @@
   --t-green-dim: #20654d;
   --t-text: #2c2c2a;
   --t-muted: #6b6a64;
+}
+
+html:has(.terminal) {
+  background: var(--t-bg);
 }
 
 /* ── The screen: centers the terminal window with padding around it ── */

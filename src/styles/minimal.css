@@ -5,7 +5,7 @@
   Rest of file uses var(--m-green) or var(--m-bg). This causes theme switch to update every color instantly. */
 
 /* ── Light theme (the minimal layout defaults to light) ── */
-.minimal.light {
+html:has(.minimal.light) {
   --m-bg: #fdfcfa;        /* page background */
   --m-surface: #ffffff;   /* cards */
   --m-text: #1a1a18;      /* headings / main text */
@@ -18,7 +18,7 @@
 }
 
 /* ── Dark theme: tasteful charcoal, same accent ── */
-.minimal.dark {
+html:has(.minimal.dark) {
   --m-bg: #131316;
   --m-surface: #1b1b1f;
   --m-text: #f2f1ed;
@@ -28,6 +28,10 @@
   --m-accent: hsl(165, 80%, 40%);
   --m-accent-soft: hsl(165, 45%, 11%);
   --m-on-accent: #131316; 
+}
+
+html:has(.minimal) {
+  background: var(--m-bg);
 }
 
 /* ── Page frame ── */
