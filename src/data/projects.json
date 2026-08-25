@@ -16,6 +16,23 @@
       "highlight": "skills",
       "started": "2026-06",
       "lastWorked": "2026-08"
+    },
+    {
+      "name": "Twitter Video/GIF Downloader",
+      "languages": ["Python", "JavaScript", "HTML", "CSS"],
+      "tools": ["FastAPI, Uvicorn, Pydantic", "HTTPX", "yt-dlp", "FFmpeg", "Docker", "Web Share API"],
+      "skills": ["REST API design", "Media Transcoding", "HTTP streaming and proxying", "Graceful degradation", "SSRF Prevention"],
+      "github": "https://github.com/rotteralec/TwitterMediaDownloader",
+      "summary": "A self-hostable web app that turns a Twitter link into a downloadable or shareable MP4/GIF using FFmpeg. FastAPI backend, vanilla-JS frontend, shipped as a Docker image.",
+      "website": "https://twittermediadownloader-b2hzbmceftg8hng5.centralus-01.azurewebsites.net/",
+      "description": [
+        "Twitter does not allow for only the tweet media to be downloaded/shared. This allows a user to copy a link to a Twitter post with a video or GIF and download or share the transcoded file.",
+        "Uses a FastAPI backend with yt-dlp as a library to resolve a tweet's CDN URLs and enumerate available qualities. Videos are proxied through a server rather than linked directly (without this, mobile users would have the link opened directly instead of saving it).",
+        "Twitter transcodes GIFs into a silent, looping MP4. To transcode this into a GIF, I used FFmpeg palettegen/palletteuse transcode and stream the result back from a temp directory which is deleted after the response finishes. A Web Share API path is used to hand the file straight over to other mobile applications without needing to save."
+    ],
+      "highlight": "skills",
+      "started": "2026-07",
+      "lastWorked": "2026-07"
     }
   ]
 }
