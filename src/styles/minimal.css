@@ -403,6 +403,39 @@ html:has(.minimal) {
   color: var(--m-accent);
 }
 
+.minimal .m-card {
+  cursor: pointer;
+}
+.minimal .m-card-desc,
+.minimal .m-card-highlight-text,
+.minimal .m-details .m-text {
+  cursor: text;
+}
+
+.minimal .m-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+}
+.minimal .m-chip-wip {
+  background: rgba(200, 72, 72, 0.14);
+  color: #b05252;
+  white-space: nowrap;
+}
+.minimal .m-status-filter {
+  margin-bottom: 18px;
+}
+.minimal .m-filter-wip:hover {
+  border-color: #b05252;
+  color: #b05252;
+}
+.minimal .m-filter-wip.active {
+  background: rgba(200, 72, 72, 0.14);
+  border-color: #b05252;
+  color: #b05252;
+}
+
 .minimal .m-card-body {
   animation: m-card-body-in 150ms ease-out both;
 }

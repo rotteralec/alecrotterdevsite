@@ -9,9 +9,14 @@ import { useState, useMemo } from "react";
 import { projects } from "../data/projects.js";
 import { getFacets, filterProjects } from "../lib/search.js";
 
+const hasInProgress = projects.some((p) => p.inProgress);
+
 export function useProjectSearch() {
   // Free-text search box.
   const [query, setQuery] = useState("");
+
+  const [inProgressOnly, setInProgressOnly] = useState(false);
+  const toggleInProgress = () => setInProgressOnly((v) => !v);
 
   // Selected tags, grouped by facet.
   const [selected, setSelected] = useState({
@@ -39,12 +44,13 @@ export function useProjectSearch() {
   const clearAll = () => {
     setQuery("");
     setSelected({ languages: [], tools: [], skills: [] });
+    setInProgressOnly(false);
   };
 
   // Recompute matches only when the query or selections change. 
   const results = useMemo(
-    () => filterProjects(projects, { query, selected }),
-    [query, selected]
+    () => filterProjects(projects, { query, selected, inProgressOnly }),
+    [query, selected, inProgressOnly]
   );
 
   // Active Filters (for the "clear (n)" label).
@@ -52,6 +58,7 @@ export function useProjectSearch() {
     selected.languages.length +
     selected.tools.length +
     selected.skills.length +
+    (inProgressOnly ? 1 : 0) +
     (query.trim() ? 1 : 0);
 
   return {
@@ -63,5 +70,8 @@ export function useProjectSearch() {
     facets,
     results,
     activeCount,
+    inProgressOnly,
+    toggleInProgress,
+    hasInProgress,
   };
 }

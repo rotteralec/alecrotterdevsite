@@ -72,6 +72,7 @@ export const COMMAND_NAMES = [
   "ls projects/ --lang=",
   "ls projects/ --tool=",
   "ls projects/ --skill=",
+  "ls projects/ --wip",
   "grep",
   "find",
   "cat",
@@ -138,6 +139,10 @@ function HelpScreen() {
       <HelpRow
         cmd="ls projects/ --filter=X"
         desc="filter by ANY tag (language, tool, or skill)"
+      />
+      <HelpRow
+        cmd="ls projects/ --wip"
+        desc="show only in-progress projects"
       />
       <HelpRow
         cmd="…combine + comma lists"
@@ -229,6 +234,7 @@ function runProjectFilter(parts) {
   const groupOf = { "--lang": "languages", "--tool": "tools", "--skill": "skills" };
   const selected = { languages: [], tools: [], skills: [] };
   const filterTerms = []; // from --filter (match ANY facet)
+  let inProgressOnly = false;
 
   const facetsLc = {
     languages: facets.languages.map((v) => v.toLowerCase()),
@@ -244,6 +250,13 @@ function runProjectFilter(parts) {
       .split(",")
       .map((v) => v.trim())
       .filter(Boolean);
+
+    if (key === "--wip") {
+      if (eq !== -1)
+        return err(`--wip takes no value — just: ls projects/ --wip`);
+      inProgressOnly = true;
+      continue;
+    }
 
     if (values.length === 0)
       return err(`${key} needs a value — e.g. ${key}=${(allFacetValues[0] || "react").toLowerCase()}`);
@@ -268,11 +281,11 @@ function runProjectFilter(parts) {
         selected[group].push(canonical(facets[group], lc));
       }
     } else {
-      return err(`unknown flag "${key}" — use --lang= --tool= --skill= or --filter=`);
+      return err(`unknown flag "${key}" — use --lang= --tool= --skill= --filter= or --wip`);
     }
   }
 
-  let list = filterProjects(projects, { selected });
+  let list = filterProjects(projects, { selected, inProgressOnly });
   if (filterTerms.length)
     list = list.filter((p) => {
       const tags = [...p.languages, ...p.tools, ...p.skills].map((t) =>

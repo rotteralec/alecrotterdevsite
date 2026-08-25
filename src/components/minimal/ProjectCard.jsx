@@ -56,9 +56,21 @@ export default function ProjectCard({ project }) {
   const [open, setOpen] = useState(false);
   const bodyId = `${project.slug}-body`;
 
+  const toggleCard = (e) => {
+    if (e.target.closest("a, button")) return;
+    const sel = window.getSelection();
+    if (sel && sel.toString()) return;
+    setOpen((o) => !o);
+  };
+
   return (
-    <article className={open ? "m-card is-open" : "m-card"}>
-      <h3 className="m-card-name">{project.name}</h3>
+    <article className={open ? "m-card is-open" : "m-card"} onClick={toggleCard}>
+      <div className="m-card-head">
+        <h3 className="m-card-name">{project.name}</h3>
+        {project.inProgress && (
+          <span className="m-chip m-chip-wip">In progress</span>
+        )}
+      </div>
       <p className="m-card-desc">{project.summary}</p>
 
       {/* The wildcard highlight */}

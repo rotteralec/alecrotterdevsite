@@ -337,3 +337,7 @@ html:has(.terminal) {
     padding: 4px 0;
   }
 }
+
+.terminal .t-wip {
+  color: #b05252;
+}

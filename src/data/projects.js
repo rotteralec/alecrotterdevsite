@@ -46,6 +46,8 @@ function isValid(project, index) {
   // highlight is optional, but if present must be one of the known blocks.
   if (project.highlight != null && !HIGHLIGHTS.includes(project.highlight))
     problems.push(`"highlight" must be one of: ${HIGHLIGHTS.join(", ")} (or omitted)`);
+  if (project.inProgress != null && typeof project.inProgress !== "boolean")
+    problems.push(`"inProgress" must be a boolean (or omitted)`);
 
   if (problems.length) {
     // A named, numbered warning so offending entry can be found quickly.
@@ -91,6 +93,7 @@ export const projects = byNewest(
       highlight: null,
       started: null,
       lastWorked: null,
+      inProgress: false,
       ...p,
       github: normalizeLink(p.github, "github", p.name),
       website: normalizeLink(p.website, "website", p.name),

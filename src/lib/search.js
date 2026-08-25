@@ -39,6 +39,7 @@ export function matchesQuery(project, query) {
     ...project.languages,
     ...project.tools,
     ...project.skills,
+    ...(project.inProgress ? ["In progress"] : []),
   ]
     .join(" ")
     .toLowerCase();
@@ -48,10 +49,11 @@ export function matchesQuery(project, query) {
 // The full filter: text query AND facet selections. 
 // Facet groups are || (Python OR Rust)
 // Groups are && (Python AND uses Docker)
-export function filterProjects(projects, { query = "", selected } = {}) {
+export function filterProjects(projects, { query = "", selected, inProgressOnly = false } = {}) {
   const sel = selected || { languages: [], tools: [], skills: [] };
   return projects.filter((p) => {
     if (!matchesQuery(p, query)) return false;
+    if (inProgressOnly && !p.inProgress) return false;
     for (const g of GROUPS) {
       const picked = sel[g] || [];
       if (picked.length && !picked.some((v) => p[g].includes(v))) return false;

@@ -21,7 +21,10 @@ export default function ProjectCard({ project, full = false }) {
   return (
     <article className="t-card">
       {/* Project name printed like a directory. */}
-      <h3 className="t-card-name">{project.slug}/</h3>
+      <h3 className="t-card-name">
+        {project.slug}/
+        {project.inProgress && <span className="t-wip"> [wip]</span>}
+      </h3>
       <p className="t-card-desc">{project.summary}</p>
 
       {/* Full view (cat) prints the detailed description paragraphs. */}

@@ -71,6 +71,10 @@
             "type": ["string", "null"],
             "pattern": "^\\d{4}(-\\d{2})?$",
             "description": "YYYY or YYYY-MM, when you last worked on it. Metadata only — NOT shown to visitors and does not affect sort, so a bug-fix commit won't reorder your projects."
+          },
+          "inProgress": {
+            "type": "boolean",
+            "description": "true marks a project as not yet finished: the minimal card shows an 'In progress' chip, the terminal shows [wip], and both layouts can filter to only these. Omit it (or false) for finished projects. Does not affect sort order."
           }
         }
       }

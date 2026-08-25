@@ -31,6 +31,9 @@ export default function MinimalLayout({ controls }) {
     facets,
     results,
     activeCount,
+    inProgressOnly,
+    toggleInProgress,
+    hasInProgress,
   } = useProjectSearch();
   //TODO: Change light and dark icons to not look like an emoji
   return (
@@ -85,6 +88,18 @@ export default function MinimalLayout({ controls }) {
           <div className="m-search">
             <SearchBar value={query} onChange={setQuery} />
           </div>
+
+          {hasInProgress && (
+            <div className="m-status-filter">
+              <button
+                className={`m-filter m-filter-wip ${inProgressOnly ? "active" : ""}`}
+                onClick={toggleInProgress}
+                aria-pressed={inProgressOnly}
+              >
+                In progress
+              </button>
+            </div>
+          )}
 
           <FilterGroups
             facets={facets}
