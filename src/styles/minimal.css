@@ -285,8 +285,8 @@ html:has(.minimal) {
 /* Facet colour-coding. Language reuses the site accent; tools and skills
    get mid-tone hues */
 .minimal .m-chip-language {
-  background: var(--m-accent-soft);
-  color: var(--m-accent);
+  background: rgba(124, 91, 214, 0.15);
+  color: #7d5bd6;
 }
 .minimal .m-chip-tool {
   background: rgba(20, 184, 166, 0.15);
@@ -517,4 +517,43 @@ html:has(.minimal) {
   .minimal .m-detail-label {
     flex: 0 0 auto;
   }
+}
+
+.minimal .m-glabel-languages {
+  color: #7d5bd6;
+}
+.minimal .m-glabel-tools {
+  color: #0f9a8c;
+}
+.minimal .m-glabel-skills {
+  color: #c07806;
+}
+
+.minimal .m-filter-languages:hover {
+  border-color: #7d5bd6;
+  color: #7d5bd6;
+}
+.minimal .m-filter-tools:hover {
+  border-color: #0f9a8c;
+  color: #0f9a8c;
+}
+.minimal .m-filter-skills:hover {
+  border-color: #c07806;
+  color: #c07806;
+}
+
+.minimal .m-filter-languages.active {
+  background: rgba(124, 91, 214, 0.15);
+  border-color: #7d5bd6;
+  color: #7d5bd6;
+}
+.minimal .m-filter-tools.active {
+  background: rgba(20, 184, 166, 0.15);
+  border-color: #0f9a8c;
+  color: #0f9a8c;
+}
+.minimal .m-filter-skills.active {
+  background: rgba(245, 158, 11, 0.16);
+  border-color: #c07806;
+  color: #c07806;
 }

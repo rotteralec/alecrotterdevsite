@@ -6,9 +6,9 @@
 // Group with no tags renders nothing, empty facet disappears.
 
 const GROUPS = [
-  ["languages", "Languages"],
   ["tools", "Tools"],
   ["skills", "Skills"],
+  ["languages", "Languages"],
 ];
 
 export default function FilterGroups({ facets, selected, onToggle }) {
@@ -17,12 +17,12 @@ export default function FilterGroups({ facets, selected, onToggle }) {
       {GROUPS.map(([key, label]) =>
         facets[key].length === 0 ? null : (
           <div className="m-filter-group" key={key}>
-            <span className="m-filter-group-label">{label}</span>
+            <span className={`m-filter-group-label m-glabel-${key}`}>{label}</span>
             <div className="m-filters">
               {facets[key].map((tag) => (
                 <button
                   key={tag}
-                  className={`m-filter ${
+                  className={`m-filter m-filter-${key} ${
                     selected[key].includes(tag) ? "active" : ""
                   }`}
                   onClick={() => onToggle(key, tag)}
